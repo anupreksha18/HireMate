@@ -2,12 +2,23 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import testRouter from './routes/test.routes.js';
+import cookieParser from 'cookie-parser';
+import userREoutes from './routes/user.routes.js';
+import resumeRoute from './routes/resume.routes.js';
+
+import dotenv from 'dotenv';
+dotenv.config();
+import { connectDb } from './config/db.js';
 import { errorHandler, notFound } from './middlewares/error.middleware.js';
 const app=express();
+
+connectDb(process.env.MONGO_URL);
+
 
 app.use(cors(({origin:process.env.CORS_ORIGIN})));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(cookieParser());
 if (process.env.NODE_ENV !== "production") app.use(morgan("dev"));
 
 app.get('/', (req, res) => {
@@ -18,6 +29,8 @@ app.get('/fail', (req, res) => {
 });
 
 app.use('/api/test',testRouter)
+app.use('/api/users',userREoutes)
+app.use('/api/resume',resumeRoute);
 app.use(notFound);
 app.use(errorHandler);
 
