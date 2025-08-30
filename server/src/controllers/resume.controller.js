@@ -38,7 +38,7 @@ export const createOrUpdateResume = asyncHandler(async (req, res, next) => {
       portfolioUrl,
     });
     await resume.save();
-    return res.status(201).json(new ApiResponse(201, resume, "Resume created successfully"));
+    return res.status(201).json(new ApiResponse(201,  "Resume created successfully",resume));
   }
 });
 

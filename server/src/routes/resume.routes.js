@@ -6,8 +6,8 @@ import { deleteResume } from "../controllers/resume.controller.js";
 const router = Router();
 
 // Create or Update Resume
-router.post("/create", auth, createOrUpdateResume);  
-router.put("/update", auth, createOrUpdateResume);   
+router.post("/", auth, createOrUpdateResume);  
+// router.put("/update", auth, createOrUpdateResume);   
 router.get("/me", auth,getMyResume);
-router.delete("/delete",auth,deleteResume);
+router.delete("/me",auth,deleteResume);
 export default router;

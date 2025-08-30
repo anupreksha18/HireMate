@@ -3,7 +3,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import testRouter from './routes/test.routes.js';
 import cookieParser from 'cookie-parser';
-import userREoutes from './routes/user.routes.js';
+import userRoutes from './routes/user.routes.js';
 import resumeRoute from './routes/resume.routes.js';
 
 import dotenv from 'dotenv';
@@ -15,7 +15,7 @@ const app=express();
 connectDb(process.env.MONGO_URL);
 
 
-app.use(cors(({origin:process.env.CORS_ORIGIN})));
+app.use(cors(({origin:process.env.CORS_ORIGIN,credentials:true})));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
@@ -29,7 +29,7 @@ app.get('/fail', (req, res) => {
 });
 
 app.use('/api/test',testRouter)
-app.use('/api/users',userREoutes)
+app.use('/api/users',userRoutes)
 app.use('/api/resume',resumeRoute);
 app.use(notFound);
 app.use(errorHandler);
