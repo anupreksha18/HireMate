@@ -1,19 +1,20 @@
-import api from "./api";
+import axios from "./api"; // axios instance with baseURL: /api/resumes
 
-// Create or Update resume
+// Create or update resume
 export const saveResume = async (data) => {
-  const res = await api.post("/resumes", data); // assuming backend route POST /api/resumes
+  const res = await axios.post("/me", data);
   return res.data;
 };
 
-// Get logged in user's resume
+// Get logged-in user's resume
 export const getResume = async () => {
-  const res = await api.get("/resumes/me");
+  const res = await axios.get("/me");
   return res.data;
 };
 
-// Optionally: Fetch another user’s resume by ID
+// Optionally: fetch another user's resume by ID
 export const getResumeById = async (id) => {
-  const res = await api.get(`/resumes/${id}`);
+  const res = await axios.get(`/${id}`);
   return res.data;
 };
+  

@@ -30,7 +30,7 @@ app.get('/fail', (req, res) => {
 
 app.use('/api/test',testRouter)
 app.use('/api/users',userRoutes)
-app.use('/api/resume',resumeRoute);
+app.use('/api/resumes',resumeRoute);
 app.use(notFound);
 app.use(errorHandler);
 

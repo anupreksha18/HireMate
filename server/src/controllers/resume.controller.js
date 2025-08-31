@@ -22,7 +22,7 @@ export const createOrUpdateResume = asyncHandler(async (req, res, next) => {
     if (portfolioUrl) resume.portfolioUrl = portfolioUrl;
 
     await resume.save();
-    return res.status(200).json(new ApiResponse(200, resume, "Resume updated successfully"));
+    return res.status(200).json(new ApiResponse(200, "Resume updated successfully",resume));
   } else {
     // Create new resume
     resume = new Resume({
@@ -38,7 +38,7 @@ export const createOrUpdateResume = asyncHandler(async (req, res, next) => {
       portfolioUrl,
     });
     await resume.save();
-    return res.status(201).json(new ApiResponse(201,  "Resume created successfully",resume));
+    return res.status(201).json(new ApiResponse(201, "Resume created successfully", resume));
   }
 });
 
@@ -47,20 +47,20 @@ export const getMyResume = asyncHandler(async (req, res, next) => {
   const resume = await Resume.findOne({ user: req.user.id });
 
   if (!resume) {
-    return next(new ApiError("Resume not found", 404));
+    return next(new ApiError(404,"Resume not found"));
   }
 
   return res
     .status(200)
-    .json(new ApiResponse( 200, "Resume fetched successfully", resume));
+    .json(new ApiResponse( 200, "Resume fetched successfully",resume));
 });
 
 //delete resume
 export const deleteResume=asyncHandler(async(req,res,next)=>{
     const resume=await Resume.findOneAndDelete({user:req.user.id});
     if(!resume){
-        return next(new ApiError("Resume not found",404));
+        return next(new ApiError(404,"Resume not found"));
     }
-    return res.status(200).json(new ApiResponse(200,{},'Resume deleted successfully'));
+    return res.status(200).json(new ApiResponse(200,'Resume deleted successfully',{}));
 });
 

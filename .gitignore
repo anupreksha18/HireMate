@@ -25,7 +25,7 @@ out/
 .idea/
 *.swp
 *.swo
-`   `
+
 # OS-specific files
 .DS_Store
 Thumbs.db
@@ -33,6 +33,3 @@ Thumbs.db
 # Coverage / test
 coverage/
 *.lcov
-
-#
-

@@ -21,6 +21,10 @@ export default function Navbar() {
           </>
         ) : (
           <>
+            {/* Add Home/Dashboard link */}
+            <Link to="/dashboard" className="hover:underline">
+              Home
+            </Link>
             <Link to="/resume" className="hover:underline">
               My Resume
             </Link>

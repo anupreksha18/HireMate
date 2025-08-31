@@ -7,34 +7,54 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load user profile on initial render
+  // On mount: check localStorage first, fallback to API
   useEffect(() => {
-    authService
-      .getProfile()
-      .then((res) => setUser(res.data))
-      .catch(() => setUser(null))
-      .finally(() => setLoading(false));
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      setLoading(false);
+    } else {
+      authService
+        .getProfile()
+        .then((res) => {
+          if (res.data) {
+            setUser(res.data); 
+            localStorage.setItem("user", JSON.stringify(res.data));
+          }
+        })
+        .catch(() => setUser(null))
+        .finally(() => setLoading(false));
+    }
   }, []);
-  
-// Login function
-const login = async (data) => {
-  const res = await authService.login(data);
-  setUser(res.data);
-  return res.message; // ✅ only return string
-};
 
-// Register function
-const register = async (data) => {
-  const res = await authService.register(data);
-  setUser(res.data);
-  return res.message; // ✅ only return string
-};
+  // Login function
+  const login = async (data) => {
+    const res = await authService.login(data);
+    if (res.data) {
+      setUser(res.data);
+      localStorage.setItem("user", JSON.stringify(res.data));
+      localStorage.setItem("token", res.data.accessToken);
+    }
+    return res.message; // string only
+  };
 
+  // Register function
+  const register = async (data) => {
+    const res = await authService.register(data);
+    if (res.data) {
+      setUser(res.data);
+      localStorage.setItem("user", JSON.stringify(res.data));
+      localStorage.setItem("token", res.data.accessToken);
+    }
+    return res.message;
+  };
 
   // Logout function
   const logout = async () => {
     await authService.logout();
     setUser(null);
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
   };
 
   return (
@@ -44,6 +64,4 @@ const register = async (data) => {
   );
 }
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);
