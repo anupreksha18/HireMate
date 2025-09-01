@@ -49,13 +49,17 @@ export function AuthProvider({ children }) {
     return res.message;
   };
 
-  // Logout function
-  const logout = async () => {
+const logout = async () => {
+  try {
     await authService.logout();
+  } catch (error) {
+    console.error("Logout failed:", error);
+  } finally {
     setUser(null);
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-  };
+  }
+};
 
   return (
     <AuthContext.Provider value={{ user, loading, login, register, logout }}>

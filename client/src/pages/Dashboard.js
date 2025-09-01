@@ -27,12 +27,12 @@ export default function Dashboard() {
             <p>
               <b>Email:</b> {user.email || "Not provided"}
             </p>
-            <p>
+            {/* <p>
               <b>Skills:</b>{" "}
               {Array.isArray(user.skills) && user.skills.length > 0
                 ? user.skills.join(", ")
                 : "No skills added yet"}
-            </p>
+            </p> */}
 
             <div className="mt-4 flex gap-4">
               <button
