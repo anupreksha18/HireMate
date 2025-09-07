@@ -6,12 +6,12 @@ export default function Navbar() {
 
   return (
     <nav className="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-4 flex justify-between items-center shadow-lg">
-      <Link
-        to="/"
+      <p
+        
         className="text-2xl font-bold text-white hover:text-yellow-300 transition-colors duration-200"
       >
         HireMate
-      </Link>
+      </p>
 
       <div className="flex items-center space-x-3">
         {!user ? (
