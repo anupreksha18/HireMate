@@ -12,11 +12,9 @@ import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <AuthProvider>
+    
       <Router>
-        {/* Navbar will be visible on all pages */}
         <Navbar />
-
         <Routes>
           {/* Public Pages */}
           <Route path="/" element={<Landing />} />
@@ -50,7 +48,7 @@ function App() {
           />
         </Routes>
       </Router>
-    </AuthProvider>
+   
   );
 }
 

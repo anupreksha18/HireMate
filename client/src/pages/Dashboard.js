@@ -10,7 +10,7 @@ export default function Dashboard() {
   if (!user) {
     return <p className="text-center text-gray-600 mt-10">Loading...</p>;
   }
-console.log("Dashboard data:", user);
+console.log("Dashboard data:", data);
   // Example dynamic data (replace with your real context/state)
   const skills = data?.skills || [];        // array of skills
   const education = data?.education || [];  // array of education entries
@@ -29,7 +29,7 @@ console.log("Dashboard data:", user);
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-6xl mx-auto bg-white shadow-2xl rounded-3xl p-10 space-y-8 ">
+      <div className="max-w-6xl mx-auto bg-white shadow-2xl rounded-3xl p-10 space-y-8">
 
         {/* Welcome Header */}
         <div className="text-center mb-6">
