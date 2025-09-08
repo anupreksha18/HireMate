@@ -63,38 +63,39 @@ export default function Resume() {
   } = resume;
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10 font-sans">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-6 px-4 sm:px-6 lg:px-8 font-sans">
       <style>{`
-        /* Individual items should not split */
         li {
           page-break-inside: avoid;
           break-inside: avoid;
         }
-        /* Sections can split naturally */
         section {
           page-break-inside: auto;
         }
-        /* Hide button in PDF */
         @media print {
           .no-print {
             display: none !important;
+          }
+          .resume-container {
+            width: 210mm !important;
+            min-height: 297mm !important;
+            padding: 12mm !important;
           }
         }
       `}</style>
 
       <div
         ref={containerRef}
-        className="bg-white shadow-lg p-12 relative"
-        style={{ width: "210mm", minHeight: "297mm" }}
+        className="resume-container bg-white shadow-lg p-6 sm:p-8 lg:p-12 w-full max-w-4xl relative"
       >
         {/* Top-right links */}
-        <div className="absolute top-6 right-6 flex gap-4 text-sm">
+        <div className="absolute top-4 right-4 flex flex-col sm:flex-row gap-2 sm:gap-4 text-sm">
           {githubUrl && (
             <a
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-gray-800 hover:text-gray-900"
+              className="flex items-center gap-1 text-gray-800 hover:text-gray-900 break-all"
             >
               <FaGithub /> {githubUrl}
             </a>
@@ -104,7 +105,7 @@ export default function Resume() {
               href={linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-blue-700 hover:text-blue-800"
+              className="flex items-center gap-1 text-blue-700 hover:text-blue-800 break-all"
             >
               <FaLinkedin /> {linkedinUrl}
             </a>
@@ -112,18 +113,26 @@ export default function Resume() {
         </div>
 
         {/* Header */}
-        <div className="text-center mb-6">
-          <h1 className="text-4xl font-bold text-gray-800">{user.name || "Your Name"}</h1>
-          <p className="text-gray-600 mt-1">{user.email || "email@example.com"}</p>
-          {headline && <p className="text-gray-500 italic mt-1">{headline}</p>}
+        <div className="text-center mb-6 mt-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800">
+            {user.name || "Your Name"}
+          </h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-1">
+            {user.email || "email@example.com"}
+          </p>
+          {headline && (
+            <p className="text-gray-500 italic mt-1 text-sm sm:text-base">
+              {headline}
+            </p>
+          )}
         </div>
 
         {/* Sections */}
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8 text-sm sm:text-base">
           {/* Summary */}
           {summary && (
             <section>
-              <h2 className="text-xl font-semibold text-blue-600 border-b border-gray-300 pb-1 mb-2">
+              <h2 className="text-lg sm:text-xl font-semibold text-blue-600 border-b border-gray-300 pb-1 mb-2">
                 Summary
               </h2>
               <p className="text-gray-700">{summary}</p>
@@ -133,12 +142,12 @@ export default function Resume() {
           {/* Education */}
           {education?.length > 0 && (
             <section>
-              <h2 className="text-xl font-semibold text-blue-600 border-b border-gray-300 pb-1 mb-2">
+              <h2 className="text-lg sm:text-xl font-semibold text-blue-600 border-b border-gray-300 pb-1 mb-2">
                 Education
               </h2>
               <ul className="space-y-1 text-gray-700">
                 {education.map((edu) => (
-                  <li key={edu._id} className="flex justify-between">
+                  <li key={edu._id} className="flex flex-col sm:flex-row sm:justify-between">
                     <span>
                       <strong>{edu.degree}</strong>, {edu.school}
                     </span>
@@ -152,12 +161,12 @@ export default function Resume() {
           {/* Experience */}
           {experience?.length > 0 && (
             <section>
-              <h2 className="text-xl font-semibold text-blue-600 border-b border-gray-300 pb-1 mb-2">
+              <h2 className="text-lg sm:text-xl font-semibold text-blue-600 border-b border-gray-300 pb-1 mb-2">
                 Experience
               </h2>
               <ul className="space-y-1 text-gray-700">
                 {experience.map((exp) => (
-                  <li key={exp._id} className="flex justify-between">
+                  <li key={exp._id} className="flex flex-col sm:flex-row sm:justify-between">
                     <span>
                       <strong>{exp.role}</strong> at <em>{exp.company}</em>
                     </span>
@@ -171,7 +180,7 @@ export default function Resume() {
           {/* Projects */}
           {projects?.length > 0 && (
             <section>
-              <h2 className="text-xl font-semibold text-blue-600 border-b border-gray-300 pb-1 mb-2">
+              <h2 className="text-lg sm:text-xl font-semibold text-blue-600 border-b border-gray-300 pb-1 mb-2">
                 Projects
               </h2>
               <ul className="space-y-1 text-gray-700">
@@ -197,14 +206,14 @@ export default function Resume() {
           {/* Skills */}
           {skills?.length > 0 && (
             <section>
-              <h2 className="text-xl font-semibold text-blue-600 border-b border-gray-300 pb-1 mb-2">
+              <h2 className="text-lg sm:text-xl font-semibold text-blue-600 border-b border-gray-300 pb-1 mb-2">
                 Skills
               </h2>
               <div className="flex flex-wrap gap-2">
                 {skills.map((skill, idx) => (
                   <span
                     key={idx}
-                    className="px-3 py-1 border border-gray-300 rounded text-gray-700 text-sm"
+                    className="px-3 py-1 border border-gray-300 rounded text-gray-700 text-xs sm:text-sm"
                   >
                     {skill}
                   </span>
@@ -216,7 +225,7 @@ export default function Resume() {
           {/* Certifications */}
           {certifications?.length > 0 && (
             <section>
-              <h2 className="text-xl font-semibold text-blue-600 border-b border-gray-300 pb-1 mb-2">
+              <h2 className="text-lg sm:text-xl font-semibold text-blue-600 border-b border-gray-300 pb-1 mb-2">
                 Certifications
               </h2>
               <ul className="space-y-1 text-gray-700">
@@ -232,12 +241,14 @@ export default function Resume() {
           {/* Achievements */}
           {achievements?.length > 0 && (
             <section>
-              <h2 className="text-xl font-semibold text-blue-600 border-b border-gray-300 pb-1 mb-2">
+              <h2 className="text-lg sm:text-xl font-semibold text-blue-600 border-b border-gray-300 pb-1 mb-2">
                 Achievements
               </h2>
               <ul className="space-y-1 text-gray-700">
                 {achievements.map((a) => (
-                  <li key={a._id}>{a.title} : {a.description}</li>
+                  <li key={a._id}>
+                    {a.title}: {a.description}
+                  </li>
                 ))}
               </ul>
             </section>
@@ -248,7 +259,7 @@ export default function Resume() {
       {/* Download Button */}
       <button
         onClick={handleDownload}
-        className="no-print mt-4 px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+        className="no-print mt-6 px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
       >
         Download PDF
       </button>
